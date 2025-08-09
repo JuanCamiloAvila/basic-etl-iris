@@ -1,11 +1,20 @@
 import pandas as pd
 import psycopg2
 
+db_params = {
+    'host': 'localhost',
+    'dbname': 'postgres',
+    'user': 'postgres',
+    'password': '1234',
+    'port': 5432  # or your PostgreSQL port
+}
+
 def load_to_postgres(csv_path, db_params):
     df = pd.read_csv(csv_path)
     print("Rows to insert:", len(df))
     conn = psycopg2.connect(**db_params)
     cur = conn.cursor()
+    cur.execute("TRUNCATE TABLE iris;") # Clear the table before inserting new data
     for i, row in df.iterrows():
         try:
             cur.execute(

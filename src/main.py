@@ -9,5 +9,6 @@ def main():
     download_iris_csv(input_raw)
     transform_iris(input_raw, input_final)
     load_to_postgres(input_final, db_params)
+    
 if __name__ == "__main__":
     main()
